@@ -1,4 +1,5 @@
 #include <math.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -7,9 +8,9 @@
 #include <SDL2/SDL_image.h>
 #include <glad/glad.h>
 #include <cglm/cglm.h>
+#include <string.h>
 #include "util.h"
 #include "Renderer.h"
-
 
 int main(int argc, char* argv[])
 {
@@ -18,16 +19,26 @@ int main(int argc, char* argv[])
 	Texture wood = LoadTexture("container.jpg");
 	Texture face = LoadTexture("face.png");
 
+	Font font = LoadFont(12, "arial.ttf");
 
-	while (true) 
+	char text[25];
+
+	int a = 0;
+
+	float timer = 0;
+
+	SetWantedFps(60);
+
+	while (IsRunning()) 
 	{
 		EventChecks();
 
-
 		BeginDrawing();
 
+		const Uint8 *key = SDL_GetKeyboardState(NULL);
 
-		DrawTexture(wood);
+		if(key[SDL_SCANCODE_ESCAPE])
+			exit(0);
 
 
 		EndDrawing();
